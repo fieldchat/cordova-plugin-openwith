@@ -1,4 +1,4 @@
-package cc.fovea.openwith;
+package fi.nyholmsolutions.openwith;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

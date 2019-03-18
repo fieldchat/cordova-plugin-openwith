@@ -1,7 +1,5 @@
 # cordova-plugin-openwith
 
-<a href="https://fovea.cc"><img alt="Logo Fovea" src="https://fovea.cc/blog/wp-content/uploads/2017/09/fovea-logo-flat-128.png" height="50" /></a> &amp; <a href="https://www.interactivetools.com"><img alt="Logo InteractiveTools" src="https://www.interactivetools.com/assets/images/header/logo.png" height="59" /></a>
-
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 > This plugin for [Apache Cordova](https://cordova.apache.org/) registers your app to handle certain types of files.
@@ -54,17 +52,17 @@ On the Cordova App side, the plugin checks listens for app start or resume event
 Here's the promised one liner:
 
 ```
-cordova plugin add cc.fovea.cordova.openwith \
-  --variable ANDROID_MIME_TYPE="image/*" \
-  --variable IOS_URL_SCHEME=ccfoveaopenwithdemo \
-  --variable IOS_UNIFORM_TYPE_IDENTIFIER=public.image
+cordova plugin add fi.nyholmsolutions.cordova.openwith \
+  --variable ANDROID_MIME_TYPE="text/*" \
+  --variable IOS_URL_SCHEME=finyholmsolutionsopenwith \
+  --variable IOS_UNIFORM_TYPE_IDENTIFIER=public.text
 ```
 
 | variable | example | notes |
 |---|---|---|
-| `ANDROID_MIME_TYPE` | image/* | **Android only** Mime type of documents you want to share (wildcards accepted) |
+| `ANDROID_MIME_TYPE` | text/* | **Android only** Mime type of documents you want to share (wildcards accepted) |
 | `IOS_URL_SCHEME` | uniquelonglowercase | **iOS only** Any random long string of lowercase alphabetical characters |
-| `IOS_UNIFORM_TYPE_IDENTIFIER` | public.image | **iOS only** UTI of documents you want to share (check [Apple's System-Declared UTI](https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html#//apple_ref/doc/uid/TP40009259-SW1)) |
+| `IOS_UNIFORM_TYPE_IDENTIFIER` | public.text | **iOS only** UTI of documents you want to share (check [Apple's System-Declared UTI](https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html#//apple_ref/doc/uid/TP40009259-SW1)) |
 | `IOS_GROUP_IDENTIFIER` | group.my.app.id | **iOS only** Custom app group name. Default is `group.<YOUR_APP_BUNDLE_ID>.shareextension`. |
 | `SHAREEXT_PROVISIONING_PROFILE` | 9dfsdf-.... | **iOS only** Developer account teamId |
 | `SHAREEXT_DEVELOPMENT_TEAM` | 00B000A09l | **iOS only** UUID of provisioning profile for singing |
@@ -100,8 +98,8 @@ Use the `ANDROID_EXTRA_ACTIONS` to accept additional actions. The variable shoul
 
 ```
 MY_EXTRA_ACTIONS='<action android:name="android.intent.action.VIEW" />'
-cordova plugin add cc.fovea.cordova.openwith \
-  --variable ANDROID_MIME_TYPE="image/*" \
+cordova plugin add fi.nyholmsolutions.cordova.openwith \
+  --variable ANDROID_MIME_TYPE="text/*" \
   --variable "ANDROID_EXTRA_ACTIONS=$MY_EXTRA_ACTIONS"
 ```
 
@@ -260,4 +258,4 @@ Contributions in the form of GitHub pull requests are welcome. Please adhere to 
 
 ## License
 
-[MIT](./LICENSE) © Fovea.cc
+[MIT](./LICENSE) © 2019 Nyholmsolutions.fi © 2017 Fovea.cc

@@ -29,7 +29,7 @@
 // THE SOFTWARE.
 //
 
-const PLUGIN_ID = 'cc.fovea.cordova.openwith';
+const PLUGIN_ID = 'fi.nyholmsolutions.cordova.openwith';
 const BUNDLE_SUFFIX = '.shareextension';
 
 var fs = require('fs');
@@ -249,7 +249,7 @@ module.exports = function (context) {
     if (!target) {
       // Add PBXNativeTarget to the project
       target = pbxProject.addTarget('ShareExt', 'app_extension', 'ShareExtension');
-      
+
       // Add a new PBXSourcesBuildPhase for our ShareViewController
       // (we can't add it to the existing one because an extension is kind of an extra app)
       pbxProject.addBuildPhase([], 'PBXSourcesBuildPhase', 'Sources', target.uuid);

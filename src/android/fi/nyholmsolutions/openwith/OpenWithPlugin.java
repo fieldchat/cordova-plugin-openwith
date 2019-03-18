@@ -1,4 +1,4 @@
-package cc.fovea.openwith;
+package fi.nyholmsolutions.openwith;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import org.json.JSONObject;
 * This is the entry point of the openwith plugin
 *
 * @author Jean-Christophe Hoelt
+* @author Joel Hietanen
 */
 public class OpenWithPlugin extends CordovaPlugin {
 

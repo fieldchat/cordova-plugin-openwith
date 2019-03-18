@@ -1,4 +1,4 @@
-package cc.fovea.openwith;
+package fi.nyholmsolutions.openwith;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;

@@ -1,9 +1,9 @@
 {
-  "name": "cc.fovea.cordova.openwith",
-  "version": "1.2.0",
+  "name": "fi.nyholmsolutions.cordova.openwith",
+  "version": "1.0.0",
   "description": "Cordova \"Open With\" plugin for iOS and Android",
   "cordova": {
-    "id": "cc.fovea.cordova.openwith",
+    "id": "fi.nyholmsolutions.cordova.openwith",
     "platforms": [
       "android",
       "ios"
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/j3k0/cordova-plugin-openwith.git"
+    "url": "https://github.com/nyholmsolutions/cordova-plugin-openwith.git"
   },
   "keywords": [
     "ecosystem:cordova",
@@ -33,12 +33,12 @@
     "js-lint-watch": "esw --watch www",
     "js-test-watch": "mocha --watch www"
   },
-  "author": "Jean-Christophe Hoelt <hoelt@fovea.cc>",
+  "author": "Joel Hietanen <joel.hietanen@nyholmsolutions.fi>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/j3k0/cordova-plugin-openwith/issues"
+    "url": "https://github.com/nyholmsolutions/cordova-plugin-openwith/issues"
   },
-  "homepage": "https://github.com/j3k0/cordova-plugin-openwith",
+  "homepage": "https://github.com/nyholmsolutions/cordova-plugin-openwith",
   "# Dependencies required by the hooks": "",
   "dependencies": {
     "file-system": "^2.2.2",
@@ -61,10 +61,10 @@
   },
   "# White list the files to pack by npm publish": "",
   "files": [
-    "src/android/cc/fovea/openwith/ByteStreams.java",
-    "src/android/cc/fovea/openwith/OpenWithPlugin.java",
-    "src/android/cc/fovea/openwith/PluginResultSender.java",
-    "src/android/cc/fovea/openwith/Serializer.java",
+    "src/android/fi/nyholmsolutions/openwith/ByteStreams.java",
+    "src/android/fi/nyholmsolutions/openwith/OpenWithPlugin.java",
+    "src/android/fi/nyholmsolutions/openwith/PluginResultSender.java",
+    "src/android/fi/nyholmsolutions/openwith/Serializer.java",
     "src/ios/OpenWithPlugin.m",
     "src/ios/ShareExtension/MainInterface.storyboard",
     "src/ios/ShareExtension/ShareExtension-Info.plist",

@@ -25,7 +25,7 @@ SOFTWARE.
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="cc.fovea.cordova.openwith"
+    id="fi.nyholmsolutions.cordova.openwith"
     version="1.0.0">
 
     <name>OpenWith</name>
@@ -33,8 +33,8 @@ SOFTWARE.
     <engines>
         <engine name="cordova" version=">=6.0.0" />
     </engines>
-    <repo>https://github.com/j3k0/cordova-plugin-openwith.git</repo>
-    <issue>https://github.com/j3k0/cordova-plugin-openwith/issues</issue>
+    <repo>https://github.com/nyholmsolutions/cordova-plugin-openwith.git</repo>
+    <issue>https://github.com/nyholmsolutions/cordova-plugin-openwith/issues</issue>
 
 	<license>MIT</license>
     <keywords>cordova,phonegap,openwith,ios,android</keywords>
@@ -65,7 +65,7 @@ SOFTWARE.
             <array>
                 <dict>
                     <key>CFBundleURLName</key>
-                    <string>cc.fovea.openwith.$IOS_URL_SCHEME.shareextension</string>
+                    <string>fi.nyholmsolutions.openwith.$IOS_URL_SCHEME.shareextension</string>
                     <key>CFBundleURLSchemes</key>
                     <array>
                         <string>$IOS_URL_SCHEME</string>
@@ -93,7 +93,7 @@ SOFTWARE.
         </js-module>
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
-            <intent-filter>
+            <intent-filter android:label="Send to note">
                 <!-- category android:name="android.intent.category.BROWSABLE" / -->
                 <!-- See https://developer.android.com/guide/topics/manifest/data-element.html -->
                 <data android:mimeType="$ANDROID_MIME_TYPE" />
@@ -105,19 +105,34 @@ SOFTWARE.
             </intent-filter>
         </config-file>
 
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
+                      android:label="@string/activity_name"
+                      android:launchMode="singleTask"
+                      android:name="fi.nyholmsolutions.openwith.TaskActivity"
+                      android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
+                      android:windowSoftInputMode="adjustResize">
+                <intent-filter android:label="Send to task">
+                    <data android:mimeType="$ANDROID_MIME_TYPE" />
+                    <action android:name="android.intent.action.SEND" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                </intent-filter>
+            </activity>
+        </config-file>
+
         <!-- Cordova >= 3.0.0 -->
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="OpenWithPlugin">
-				<param name="android-package" value="cc.fovea.openwith.OpenWithPlugin"/>
+				<param name="android-package" value="fi.nyholmsolutions.openwith.OpenWithPlugin"/>
 			</feature>
             <preference name="AndroidLaunchMode" value="singleTask"/>
         </config-file>
 
         <!-- cordova plugin src files -->
-        <source-file src="src/android/cc/fovea/openwith/OpenWithPlugin.java" target-dir="src/cc/fovea/openwith" />
-        <source-file src="src/android/cc/fovea/openwith/PluginResultSender.java" target-dir="src/cc/fovea/openwith" />
-        <source-file src="src/android/cc/fovea/openwith/Serializer.java" target-dir="src/cc/fovea/openwith" />
-        <source-file src="src/android/cc/fovea/openwith/ByteStreams.java" target-dir="src/cc/fovea/openwith" />
+        <source-file src="src/android/fi/nyholmsolutions/openwith/OpenWithPlugin.java" target-dir="src/fi/nyholmsolutions/openwith" />
+        <source-file src="src/android/fi/nyholmsolutions/openwith/PluginResultSender.java" target-dir="src/fi/nyholmsolutions/openwith" />
+        <source-file src="src/android/fi/nyholmsolutions/openwith/Serializer.java" target-dir="src/fi/nyholmsolutions/openwith" />
+        <source-file src="src/android/fi/nyholmsolutions/openwith/ByteStreams.java" target-dir="src/fi/nyholmsolutions/openwith" />
     </platform>
 
 <!--
