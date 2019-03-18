@@ -28,7 +28,7 @@ SOFTWARE.
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="fi.nyholmsolutions.cordova.openwith"
-    version="1.1.0">
+    version="1.1.1">
 
     <name>OpenWith</name>
 	<description>Cordova "Open With" plugin for iOS and Android</description>
@@ -135,8 +135,10 @@ SOFTWARE.
         <source-file src="src/android/fi/nyholmsolutions/openwith/PluginResultSender.java" target-dir="src/fi/nyholmsolutions/openwith" />
         <source-file src="src/android/fi/nyholmsolutions/openwith/Serializer.java" target-dir="src/fi/nyholmsolutions/openwith" />
         <source-file src="src/android/fi/nyholmsolutions/openwith/ByteStreams.java" target-dir="src/fi/nyholmsolutions/openwith" />
+        <source-file src="src/android/fi/nyholmsolutions/openwith/AbstractOpenwithActivity.java" target-dir="src/fi/nyholmsolutions/openwith" />
+        <source-file src="src/android/fi/nyholmsolutions/openwith/CurrentTaskActivity.java" target-dir="src/fi/nyholmsolutions/openwith" />
 
-        <resource-file src="src/android/res/values/strings-openwith.xml" target-dir="res/values" />
+        <resource-file src="src/android/res/values/strings-openwith.xml" target="res/values/strings-openwith.xml" />
     </platform>
 
 <!--
