@@ -1,6 +1,6 @@
 {
   "name": "fi.nyholmsolutions.cordova.openwith",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Cordova \"Open With\" plugin for iOS and Android",
   "cordova": {
     "id": "fi.nyholmsolutions.cordova.openwith",
@@ -65,6 +65,8 @@
     "src/android/fi/nyholmsolutions/openwith/OpenWithPlugin.java",
     "src/android/fi/nyholmsolutions/openwith/PluginResultSender.java",
     "src/android/fi/nyholmsolutions/openwith/Serializer.java",
+    "src/android/fi/nyholmsolutions/openwith/AbstractOpenwithActivity.java",
+    "src/android/fi/nyholmsolutions/openwith/TaskActivity.java",
     "src/ios/OpenWithPlugin.m",
     "src/ios/ShareExtension/MainInterface.storyboard",
     "src/ios/ShareExtension/ShareExtension-Info.plist",

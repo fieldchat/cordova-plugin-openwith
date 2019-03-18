@@ -23,9 +23,9 @@ import org.json.JSONObject;
 /**
  * Handle serialization of Android objects ready to be sent to javascript.
  */
-class Serializer {
+public class Serializer {
 
-    static final int MAX_ITEMS = 5;
+    private static final int MAX_ITEMS = 5;
 
     /**
      * Convert an intent to JSON.
@@ -38,9 +38,8 @@ class Serializer {
             final ContentResolver contentResolver,
             final Intent intent)
             throws JSONException {
-        StringBuilder text = new StringBuilder();
+        final StringBuilder text = new StringBuilder();
         JSONArray items = readIntent(contentResolver, intent, text);
-        String destination = null;
         if (items == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             items = itemsFromClipData(contentResolver, intent.getClipData());
         }
@@ -50,6 +49,7 @@ class Serializer {
         if (items == null && text.length() == 0) {
             return null;
         }
+        String destination = null;
         if (intent.getExtras() != null) {
             destination = intent.getExtras().getString("destination");
         }
@@ -63,7 +63,7 @@ class Serializer {
         return action;
     }
 
-    public static String translateAction(final String action) {
+    private static String translateAction(final String action) {
         if ("android.intent.action.SEND".equals(action) ||
                 "android.intent.action.SEND_MULTIPLE".equals(action)) {
             return "SEND";
@@ -78,42 +78,48 @@ class Serializer {
      * <p>
      * Defaults to false.
      */
-    public static boolean readExitOnSent(final Bundle extras) {
+    private static boolean readExitOnSent(final Bundle extras) {
         if (extras == null) {
             return false;
         }
         return extras.getBoolean("exit_on_sent", false);
     }
 
-    public static JSONArray readIntent(ContentResolver contentResolver, Intent intent, StringBuilder text) {
-        String action = intent.getAction();
-        String type = intent.getType();
+    private static JSONArray readIntent(
+            final ContentResolver contentResolver,
+            final Intent intent,
+            final StringBuilder text) {
+        final String action = intent.getAction();
+        final String type = intent.getType();
 
         if (Intent.ACTION_SEND.equals(action) && type != null) {
-            if ("text/plain".equals(type)) {
+            if (type.equals("text/plain")) {
                 text.append(intent.getStringExtra(Intent.EXTRA_TEXT));
                 return new JSONArray() {};
+            } else if (type.startsWith("image/")) {
+                return handleSendImage(contentResolver, intent, type); // Handle single image being sent
             }
-            else if (type.startsWith("image/")) {
-                return handleSendImage(contentResolver, intent, type ); // Handle single image being sent
-            }
-        }
-        else if (Intent.ACTION_SEND_MULTIPLE.equals(action) && type != null) {
+        } else if (Intent.ACTION_SEND_MULTIPLE.equals(action) && type != null) {
             if (type.startsWith("image/")) {
-                return handleSendMultipleImages( contentResolver, type, intent); // Handle multiple images being sent
+                return handleSendMultipleImages(contentResolver, type, intent); // Handle multiple images being sent
+            } else {
+                return null;
             }
         }
         return null;
     }
 
-    static JSONArray handleSendImage(ContentResolver contentResolver, Intent intent, String type ) {
-        Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+    private static JSONArray handleSendImage(
+            final ContentResolver contentResolver,
+            final Intent intent,
+            final String type) {
+        final Uri imageUri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
         if (imageUri != null) {
-            JSONObject[] items = new JSONObject[1];
+            final JSONObject[] items = new JSONObject[1];
             try {
-                items[0] = imgToJson( contentResolver, type, imageUri );
+                items[0] = imgToJson(contentResolver, type, imageUri);
                 return new JSONArray(items);
-            } catch (Exception e) {
+            } catch (JSONException e) {
                 return null;
             }
         }
@@ -121,33 +127,40 @@ class Serializer {
     }
 
 
-    static JSONArray handleSendMultipleImages(ContentResolver contentResolver, String type, Intent intent) {
-        ArrayList<Uri> imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-        List<JSONObject> items = new LinkedList<>();
+    private static JSONArray handleSendMultipleImages(
+            final ContentResolver contentResolver,
+            final String type,
+            final Intent intent) {
+        final ArrayList<Uri> imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+        final List<JSONObject> items = new LinkedList<>();
         if (imageUris != null) {
-            for( Uri uri : imageUris ){
+            for (final Uri uri : imageUris) {
                 try {
-                    items.add( imgToJson( contentResolver, type, uri ) );
-                    if( items.size() == MAX_ITEMS ){
+                    items.add(imgToJson(contentResolver, type, uri));
+                    if (items.size() == MAX_ITEMS) {
                         break;
                     }
-                }
-                catch (Exception e){
+                } catch (JSONException e) {
                     // Do nothing here
+                    continue;
                 }
             }
         }
-        if( items.size() > 0 ){
+        if (items.size() > 0) {
             return new JSONArray(items);
         } else {
             return null;
         }
     }
 
-    private static JSONObject imgToJson(ContentResolver contentResolver, String type, Uri imageUri ) throws Exception {
-        JSONObject items = new JSONObject();
-        items.put("type", type );
-        items.put("data", getDataFromURI( contentResolver, imageUri ) );
+    private static JSONObject imgToJson(
+            final ContentResolver contentResolver,
+            final String type,
+            final Uri imageUri)
+            throws JSONException {
+        final JSONObject items = new JSONObject();
+        items.put("type", type);
+        items.put("data", getDataFromURI(contentResolver, imageUri));
         return items;
     }
 
@@ -157,7 +170,7 @@ class Serializer {
      * <p>
      * Defaults to null.
      */
-    public static JSONArray itemsFromClipData(
+    private static JSONArray itemsFromClipData(
             final ContentResolver contentResolver,
             final ClipData clipData)
             throws JSONException {
@@ -177,7 +190,7 @@ class Serializer {
      * <p>
      * See Intent.EXTRA_STREAM for details.
      */
-    public static JSONArray itemsFromExtras(
+    private static JSONArray itemsFromExtras(
             final ContentResolver contentResolver,
             final Bundle extras)
             throws JSONException {
@@ -204,7 +217,7 @@ class Serializer {
      * "path" to the file, if applicable.
      * "data" for the file.
      */
-    public static JSONObject toJSONObject(
+    private static JSONObject toJSONObject(
             final ContentResolver contentResolver,
             final Uri uri)
             throws JSONException {
@@ -239,7 +252,7 @@ class Serializer {
      * <p>
      * source: https://stackoverflow.com/questions/20067508/get-real-path-from-uri-android-kitkat-new-storage-access-framework/20402190?noredirect=1#comment30507493_20402190
      */
-    public static String getRealPathFromURI(
+    private static String getRealPathFromURI(
             final ContentResolver contentResolver,
             final Uri uri) {
         final String[] proj = {MediaStore.Images.Media.DATA};
