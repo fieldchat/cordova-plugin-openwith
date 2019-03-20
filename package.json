@@ -1,6 +1,6 @@
 {
   "name": "fi.nyholmsolutions.cordova.openwith",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Cordova \"Open With\" plugin for iOS and Android",
   "cordova": {
     "id": "fi.nyholmsolutions.cordova.openwith",

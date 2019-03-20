@@ -161,6 +161,7 @@ public class Serializer {
         final JSONObject items = new JSONObject();
         items.put("type", type);
         items.put("data", getDataFromURI(contentResolver, imageUri));
+        items.put("path", imageUri.getLastPathSegment());
         return items;
     }
 
