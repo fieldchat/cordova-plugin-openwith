@@ -290,8 +290,25 @@ module.exports = function (context) {
     //Add development team and provisioning profile
     var PROVISIONING_PROFILE = getCordovaParameter(configXml, 'SHAREEXT_PROVISIONING_PROFILE');
     var DEVELOPMENT_TEAM = getCordovaParameter(configXml, 'SHAREEXT_DEVELOPMENT_TEAM');
-    console.log('Adding team', DEVELOPMENT_TEAM, 'and provisoning profile', PROVISIONING_PROFILE);
-    if (PROVISIONING_PROFILE && DEVELOPMENT_TEAM) {
+    console.log('Adding development team', DEVELOPMENT_TEAM);
+    if (DEVELOPMENT_TEAM) {
+      var configurations = pbxProject.pbxXCBuildConfigurationSection();
+      for (var key in configurations) {
+        if (typeof configurations[key].buildSettings !== 'undefined') {
+          var buildSettingsObj = configurations[key].buildSettings;
+          if (typeof buildSettingsObj['PRODUCT_NAME'] !== 'undefined') {
+            var productName = buildSettingsObj['PRODUCT_NAME'];
+            if (productName.indexOf('ShareExt') >= 0) {
+              buildSettingsObj['DEVELOPMENT_TEAM'] = DEVELOPMENT_TEAM;
+              console.log('Added signing identities for extension!');
+            }
+          }
+        }
+      }
+    }
+
+    console.log('Adding provisioning profile ', PROVISIONING_PROFILE);
+    if (PROVISIONING_PROFILE) {
       var configurations = pbxProject.pbxXCBuildConfigurationSection();
       for (var key in configurations) {
         if (typeof configurations[key].buildSettings !== 'undefined') {
@@ -300,7 +317,6 @@ module.exports = function (context) {
             var productName = buildSettingsObj['PRODUCT_NAME'];
             if (productName.indexOf('ShareExt') >= 0) {
               buildSettingsObj['PROVISIONING_PROFILE'] = PROVISIONING_PROFILE;
-              buildSettingsObj['DEVELOPMENT_TEAM'] = DEVELOPMENT_TEAM;
               console.log('Added signing identities for extension!');
             }
           }
